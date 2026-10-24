@@ -83,6 +83,8 @@ Replace the logo in `assets/CozmeTech.webp` or update the favicon in `assets/fav
 
 ## Deployment
 
+Production site: [https://cozme-tech.vercel.app/](https://cozme-tech.vercel.app/)
+
 This is a static landing page, so it can be hosted on any static hosting service such as:
 
 - GitHub Pages
