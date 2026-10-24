@@ -5,7 +5,24 @@ const faqButtons = document.querySelectorAll('.faq-question');
 const form = document.querySelector('.contact-form');
 const yearEl = document.getElementById('year');
 const scrollTopButton = document.querySelector('.scroll-top');
-const brandLink = document.querySelector('.brand');
+const sectionRoutes = {
+  '/': 'top',
+  '/services': 'services',
+  '/solutions': 'solutions',
+  '/portfolio': 'portfolio',
+  '/about': 'about',
+  '/contact': 'contact',
+};
+
+function scrollToRoute(path, behavior = 'smooth') {
+  const normalizedPath = path.replace(/\/$/, '') || '/';
+  const sectionId = sectionRoutes[normalizedPath];
+  const target = sectionId === 'top' ? document.getElementById('top') : document.getElementById(sectionId);
+
+  if (target) {
+    target.scrollIntoView({ behavior, block: 'start' });
+  }
+}
 
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
@@ -28,16 +45,30 @@ if (navToggle && siteNav) {
   });
 }
 
-if (brandLink) {
-  brandLink.addEventListener('click', (event) => {
-    const target = brandLink.getAttribute('href');
-
-    if (target === '#top') {
-      event.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+document.querySelectorAll('a[href^="/"]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
     }
+
+    const route = new URL(link.href).pathname.replace(/\/$/, '') || '/';
+    if (!sectionRoutes[route]) {
+      return;
+    }
+
+    event.preventDefault();
+    if (window.location.pathname !== route) {
+      window.history.pushState(null, '', route);
+    }
+    scrollToRoute(route);
   });
-}
+});
+
+window.addEventListener('popstate', () => {
+  scrollToRoute(window.location.pathname);
+});
+
+scrollToRoute(window.location.pathname, 'instant');
 
 faqButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -91,9 +122,10 @@ function setFieldState(input, message) {
 }
 
 if (scrollTopButton) {
+  const hero = document.querySelector('.hero');
   const toggleScrollTopButton = () => {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-    const threshold = document.documentElement.scrollHeight / 2;
+    const threshold = hero ? hero.getBoundingClientRect().bottom + window.scrollY : 0;
     scrollTopButton.classList.toggle('is-visible', scrollPosition > threshold);
   };
 
@@ -101,6 +133,9 @@ if (scrollTopButton) {
   window.addEventListener('scroll', toggleScrollTopButton, { passive: true });
 
   scrollTopButton.addEventListener('click', () => {
+    if (window.location.pathname !== '/') {
+      window.history.pushState(null, '', '/');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }

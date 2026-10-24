@@ -12,12 +12,14 @@ This project is a static website designed to present the company, services, tech
 CozmeTech/
 ├── assets/
 │   ├── CozmeTech.webp
+│   ├── LogoCozmeTech.webp
 │   └── favicon.svg
 ├── css/
 │   └── styles.css
 ├── js/
 │   └── main.js
 ├── index.html
+├── _redirects
 ├── robots.txt
 ├── sitemap.xml
 └── README.md
@@ -31,7 +33,8 @@ CozmeTech/
 - Portfolio showcase area
 - FAQ accordion
 - Contact form with client-side validation
-- Smooth scroll and back-to-top behavior
+- Clean section URLs with browser history
+- Floating WhatsApp action and back-to-top button shown after the hero
 - SEO-friendly files (`robots.txt` and `sitemap.xml`)
 - Branded visual identity for Cozme Tech
 
@@ -59,18 +62,23 @@ http://localhost:8000/
 ## Customize the Site
 
 ### Brand and text
+
 Update the company name, headings, CTA text, and service content directly in `index.html`.
 
 ### Styling
+
 Edit the design system and component styles in `css/styles.css`.
 
 ### JavaScript interactions
+
 Modify behavior for navigation, scroll effects, contact form, FAQ, and reveal animations in `js/main.js`.
 
 ### Contact details
-Update links such as email, LinkedIn, GitHub, and other contact information in the relevant sections of `index.html`.
+
+Update email and social links in `index.html`. The floating WhatsApp button's number and prefilled message are configured in the `.whatsapp-cta` link in the same file.
 
 ### Assets
+
 Replace the logo in `assets/CozmeTech.webp` or update the favicon in `assets/favicon.svg` as needed.
 
 ## Deployment
@@ -82,6 +90,8 @@ This is a static landing page, so it can be hosted on any static hosting service
 - Vercel
 - Firebase Hosting
 - Any standard static web server
+
+Section navigation uses clean paths such as `/services` and `/contact`. The `_redirects` file configures the required fallback on Netlify; on other hosts, configure an equivalent rewrite to `index.html` so direct visits and refreshes on those paths work.
 
 ## Notes
 

@@ -1204,10 +1204,10 @@ select[aria-invalid="true"] {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.whatsapp-cta,
 .scroll-top {
   position: fixed;
   right: 1.25rem;
-  bottom: 1.25rem;
   z-index: 200;
   display: inline-flex;
   align-items: center;
@@ -1216,9 +1216,31 @@ select[aria-invalid="true"] {
   height: 3rem;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-interactive), var(--color-accent));
   color: var(--color-surface);
-  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22);
+}
+
+.whatsapp-cta {
+  bottom: 5.25rem;
+  background: #25d366;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.whatsapp-cta:hover,
+.whatsapp-cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.28);
+}
+
+.whatsapp-cta svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: currentColor;
+}
+
+.scroll-top {
+  bottom: 1.25rem;
+  background: linear-gradient(135deg, var(--color-interactive), var(--color-accent));
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
